@@ -1,11 +1,10 @@
 #!/bin/sh
 
-# Nicolas Heiniger (2006)
-# Version : 1.1 (28.8.2007)
-# Utilisation :
-# photoFSTB.sh filename
+# Original version by Nicolas Heiniger (2006)
+# Usage :
+# phototchouk.sh filename
 
-### Paramètres ###
+### Parameters ###
 width=1200
 height=1200
 quality=80
@@ -13,18 +12,19 @@ counter=1
 index="0001"
 filename=""
 
-# on vérifie les arguments
+# checking the arguments
 if [ $# -ne 1 ]; then
-	echo "Usage : photoFSTB filename"
+	echo "Usage : phototchouk filename"
 elif [ -n $1 ]; then
-	# on met les arguments dans nos variables
+	# putting arguments in variables
 	filename="$1"
-	
-	# fichier de conversion
+
+	# directory for the files to upload
 	mkdir web
+	# log file
 	touch ./0conversion.txt
-	
-	# on change la taille
+
+	# resizing
 	for i in *.[jJ][pP][gG]; do
 		echo "Processing $i"
 		if [ "$counter" -lt 10 ]; then
@@ -40,8 +40,8 @@ elif [ -n $1 ]; then
 			exit -1
 		fi
 		echo "$i : ${filename}_$index.jpg" >> ./0conversion.txt
-		convert $i -resize ${width}x$height -quality $quality ./web/${filename}_$index.jpg # copie pour le web
-		mv "$i" ./${filename}_$index.jpg # copie pour le disque dur FSTB
+		convert $i -resize ${width}x$height -quality $quality ./web/${filename}_$index.jpg # copies for Phototchouk.com
+		mv "$i" ./${filename}_$index.jpg # copies for the archive hard drive
 		counter=$(( $counter + 1 ))
 	done
 	echo "Resizing ended successfully."
