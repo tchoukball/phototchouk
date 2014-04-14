@@ -24,9 +24,14 @@ elif [ -n $1 ]; then
 	# log file
 	touch ./0conversion.txt
 
+	# computing the total number of files to convert
+	nbFilesToConvert=$(ls *.[jJ][pP][gG] | wc -l)
+	echo "$nbFilesToConvert files to convert"
+
 	# resizing
 	for i in *.[jJ][pP][gG]; do
-		echo "Processing $i"
+		nbFilesToConvert=$((nbFilesToConvert-1))
+		echo "Processing $i ($nbFilesToConvert files left)"
 		if [ "$counter" -lt 10 ]; then
 			index="000"$counter
 		elif [ $counter -lt 100 ]; then
