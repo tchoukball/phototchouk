@@ -2,7 +2,7 @@
 
 # Original version by Nicolas Heiniger (2006)
 # Usage :
-# phototchouk.sh filename
+# ./phototchouk.sh [filename]
 
 ### Parameters ###
 width=1200
@@ -10,14 +10,26 @@ height=1200
 quality=80
 counter=1
 index="0001"
-filename=""
+# getting the current directory name
+filename="$(printf '%q\n' "${PWD##*/}")"
+proceed=false
 
 # checking the arguments
 if [ $# -ne 1 ]; then
-	echo "Usage : phototchouk filename"
+	printf "Use $filename as filename for the photos? [y|n] "
+	read answer
+	if [[ "$answer" = [Yy] ]]; then
+		proceed=true
+	else
+		echo "Usage : ./phototchouk.sh [filename]"
+	fi
 elif [ -n $1 ]; then
-	# putting arguments in variables
+	# putting argument in variable
 	filename="$1"
+	proceed=true
+fi
+
+if [ "$proceed" = true ]; then
 
 	# directory for the files to upload
 	mkdir web
