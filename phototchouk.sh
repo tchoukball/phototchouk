@@ -5,9 +5,9 @@
 # ./phototchouk.sh [filename]
 
 ### Parameters ###
-width=1200
-height=1200
-quality=80
+width=2048
+height=2048
+quality=100
 counter=1
 index="0001"
 # getting the current directory name
